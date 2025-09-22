@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Arish University for students</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600&display=swap" rel="stylesheet">
+<style>
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Cairo', sans-serif;
+}
+
+html, body {
+  height: 100%;
+}
+
+body {
+  position: relative;
+  background: url('imgs/comm.jpg') no-repeat center center/cover;
+  min-height: 100vh;
+  color: #333;
+  display: flex;
+  flex-direction: column;
+}
+
+body::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-color: rgba(0,0,0,0.4);
+  z-index: -1;
+}
+
+.menu-btn {
+  font-size: 28px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  margin: 15px;
+  position: fixed;
+  top: 10px;
+  right: 10px;
+  z-index: 1100;
+  color: #fff;
+}
+
+.sidebar {
+  position: fixed;
+  top: 0;
+  right: -280px;
+  width: 280px;
+  height: 100%;
+  background: rgba(34,34,34,0.95);
+  color: #fff;
+  padding: 20px;
+  transition: right 0.3s ease;
+  z-index: 1000;
+  overflow-y: auto;
+}
+
+.sidebar.active { right: 0; }
+
+.close-btn {
+  font-size: 26px;
+  color: #fff;
+  background: none;
+  border: none;
+  cursor: pointer;
+  position: absolute;
+  top: 15px;
+  left: 15px;
+}
+
+.sidebar h3 {
+  margin: 20px 0 10px;
+  font-size: 1.2rem;
+  border-bottom: 1px solid #444;
+  padding-bottom: 6px;
+  cursor: pointer;
+}
+
+.dropdown {
+  display: none;
+  padding-right: 10px;
+  margin-bottom: 10px;
+}
+
+.dropdown button {
+  display: block;
+  width: 100%;
+  background: #ff9800;
+  color: #fff;
+  border: none;
+  margin: 5px 0;
+  padding: 8px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.3s;
+  text-align: right;
+}
+
+.dropdown button:hover { background: #e68900; }
+
+.year-terms-sidebar {
+  display: none;
+  padding-right: 20px;
+  margin-top: 5px;
+}
+
+.year-terms-sidebar a {
+  display: block;
+  background: #2196f3;
+  margin: 4px 0;
+  padding: 8px;
+  border-radius: 6px;
+  text-decoration: none;
+  color: #fff;
+  transition: background 0.3s;
+}
+
+.year-terms-sidebar a:hover { background-color: #1976d2; }
+
+.hero {
+  text-align: center;
+  padding: 80px 20px 30px;
+  color: #fff;
+  text-shadow: 1px 1px 4px rgba(0,0,0,0.7);
+  flex-shrink: 0;
+}
+
+.hero h1 { font-size: 2rem; margin-bottom: 10px; }
+.hero p { font-size: 1rem; }
+
+.grid-container {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+  padding: 20px;
+  flex-shrink: 0;
+}
+
+.grid-item {
+  width: 260px;
+  background: rgba(255,255,255,0.95);
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  overflow: hidden;
+  transition: transform 0.3s ease;
+  cursor: pointer;
+  text-align: center;
+  padding: 20px;
+}
+
+.grid-item:hover { transform: translateY(-5px); }
+
+.overlay span {
+  display: block;
+  font-weight: 600;
+  font-size: 1.1rem;
+  margin-bottom: 10px;
+}
+
+.terms-buttons { display: none; animation: fadeIn 0.3s ease forwards; }
+
+.terms-buttons button {
+  padding: 10px 14px;
+  margin: 5px;
+  font-size: 0.95rem;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  background-color: #2196f3;
+  color: #fff;
+  transition: background-color 0.3s;
+}
+
+.terms-buttons button:hover { background-color: #1976d2; }
+
+.year-terms { display: none; margin-top: 10px; animation: fadeIn 0.3s ease forwards; }
+
+.year-terms button {
+  padding: 8px 12px;
+  margin: 4px;
+  font-size: 0.9rem;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  background-color: #4caf50;
+  color: #fff;
+  transition: background 0.3s;
+}
+
+.year-terms button:hover { background-color: #388e3c; }
+
+@keyframes fadeIn { from {opacity:0; transform:translateY(10px);} to {opacity:1; transform:translateY(0);} }
+
+footer {
+  background-color: #222;
+  color: white;
+  text-align: center;
+  padding: 12px;
+  font-size: 0.9rem;
+  margin-top: auto;
+}
+
+footer a { color: #ff9800; }
+
+@media (max-width: 768px) {
+  .grid-container { flex-direction: column; align-items: center; }
+  .grid-item { width: 90%; }
+}
+</style>
+</head>
+<body>
+
+<button class="menu-btn" id="menuBtn" onclick="toggleSidebar()">☰</button>
+
+<div class="sidebar" id="sidebar">
+  <button class="close-btn" id="closeBtn" onclick="toggleSidebar()">×</button>
+
+  <h3 onclick="toggleDropdown('first-dropdown')">الفرقة الأولى</h3>
+  <div id="first-dropdown" class="dropdown">
+    <button onclick="toggleSidebarYears('first2023')">2023</button>
+    <div id="first2023" class="year-terms-sidebar">
+      <a href="https://drive.google.com/drive/folders/1HqgMdSu7XHdeZv_GK6_WEeVfc1S-jHGQ?usp=drive_link">التيرم الأول</a>
+      <a href="https://drive.google.com/drive/folders/1KFFDl7rlskhaK6GCIu2x0KuWcCxhxtt-?usp=drive_link">التيرم الثاني</a>
+    </div>
+    <button onclick="toggleSidebarYears('first2024')">2024</button>
+    <div id="first2024" class="year-terms-sidebar">
+      <a href="https://drive.google.com/drive/folders/18Z5LQg_2Z74LrT-jRgzfJvhXik4Q68jG?usp=drive_link">التيرم الثاني</a>
+    </div>
+    <!-- <button onclick="toggleSidebarYears('first2025')">2025</button>
+    <div id="first2025" class="year-terms-sidebar">
+      <a href="#">التيرم الأول</a>
+      <a href="#">التيرم الثاني</a>
+    </div> -->
+  </div>
+
+  <h3 onclick="toggleDropdown('second-dropdown')">الفرقة الثانية</h3>
+  <div id="second-dropdown" class="dropdown">
+    <button onclick="toggleSidebarYears('second2024')">2024</button>
+    <div id="second2024" class="year-terms-sidebar">
+      <a href="https://drive.google.com/drive/folders/1DQUn7BZls3X3LJDtvrlkfHn5e14KCUiI?usp=drive_link">التيرم الأول</a>
+      <a href="https://drive.google.com/drive/folders/17Zc7lpX3FbdOHSRYeIw5GOWKJdj4RryF?usp=drive_link">التيرم الثاني</a>
+    </div>
+    <button onclick="toggleSidebarYears('second2025')">2025</button>
+    <div id="second2025" class="year-terms-sidebar">
+      <a href="https://drive.google.com/drive/folders/1FeGGjhRQm7ypXXwRRTXZIwUJIXgSf1aI?usp=drive_link">التيرم الأول</a>
+      <a href="#">التيرم الثاني</a>
+    </div>
+  </div>
+
+  <h3 onclick="toggleDropdown('third-dropdown')">الفرقة الثالثة</h3>
+  <div id="third-dropdown" class="dropdown">
+    <button onclick="toggleSidebarYears('third2025')">2025</button>
+    <div id="third2025" class="year-terms-sidebar">
+      <a href="https://drive.google.com/drive/folders/1zVFFM-Z4KmQLVu5XXZtt78Rlz7ZLyyuw?usp=drive_link">التيرم الأول</a>
+    </div>
+  </div>
+</div>
+
+<div class="hero">
+  <h1>جامعة العريش<br>كلية التجارة</h1>
+  <p>موقع لمساعدة طلاب الجامعة في الوصول للمحتوى العلمي بسهولة</p>
+</div>
+
+<div class="grid-container">
+
+  <div class="grid-item" onclick="toggleBlur(this,'first')">
+    <div class="overlay">
+      <span>الفرقة الأولى</span>
+      <div id="first" class="terms-buttons">
+        <button onclick="toggleYears('first-2023','first-2024','first-2025',event)">2023</button>
+        <button onclick="toggleYears('first-2024','first-2023','first-2025',event)">2024</button>
+        <!-- <button onclick="toggleYears('first-2025','first-2023','first-2024',event)">2025</button> -->
+
+        <div id="first-2023" class="year-terms">
+          <button onclick="window.open('https://drive.google.com/drive/folders/1HqgMdSu7XHdeZv_GK6_WEeVfc1S-jHGQ?usp=drive_link','_blank')">التيرم الأول</button>
+          <button onclick="window.open('https://drive.google.com/drive/folders/1KFFDl7rlskhaK6GCIu2x0KuWcCxhxtt-?usp=drive_link','_blank')">التيرم الثاني</button>
+        </div>
+
+        <div id="first-2024" class="year-terms">
+          <button onclick="window.open('https://drive.google.com/drive/folders/18Z5LQg_2Z74LrT-jRgzfJvhXik4Q68jG?usp=drive_link','_blank')">التيرم الثاني</button>
+        </div>
+
+        <!-- <div id="first-2025" class="year-terms">
+          <button onclick="window.open('#','_blank')">التيرم الأول</button>
+          <button onclick="window.open('#','_blank')">التيرم الثاني</button>
+        </div> -->
+      </div>
+    </div>
+  </div>
+
+<div class="grid-item" onclick="toggleBlur(this,'second')">
+  <div class="overlay">
+    <span>الفرقة الثانية</span>
+    <div id="second" class="terms-buttons">
+
+      <button onclick="toggleYears('second-2024','second-2025',null,event)">2024</button>
+      <button onclick="toggleYears('second-2025','second-2024',null,event)">2025</button>
+
+      <div id="second-2024" class="year-terms">
+        <button onclick="window.open('https://drive.google.com/drive/folders/1DQUn7BZls3X3LJDtvrlkfHn5e14KCUiI?usp=drive_link','_blank')">التيرم الأول</button>
+        <button onclick="window.open('https://drive.google.com/drive/folders/17Zc7lpX3FbdOHSRYeIw5GOWKJdj4RryF?usp=drive_link','_blank')">التيرم الثاني</button>
+      </div>
+
+      <div id="second-2025" class="year-terms">
+        <button onclick="window.open('https://drive.google.com/drive/folders/1FeGGjhRQm7ypXXwRRTXZIwUJIXgSf1aI?usp=drive_link','_blank')">التيرم الأول</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+  <div class="grid-item" onclick="toggleBlur(this,'third')">
+    <div class="overlay">
+      <span>الفرقة الثالثة</span>
+      <div id="third" class="terms-buttons">
+        <button onclick="toggleYears('third-2025',null,null,event)">2025</button>
+        <div id="third-2025" class="year-terms">
+          <button onclick="window.open('https://drive.google.com/drive/folders/1zVFFM-Z4KmQLVu5XXZtt78Rlz7ZLyyuw?usp=drive_link','_blank')">التيرم الأول</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div>Developed by <a href="https://www.facebook.com/3bdullah7asan1">Abdallah Hassan</a></div>
+  <div>Call me: <a href="tel:01029472254">01029472254</a></div>
+</footer>
+
+<script>
+function toggleSidebar() {
+  document.getElementById("sidebar").classList.toggle("active");
+}
+
+function toggleDropdown(id) {
+  const dropdown = document.getElementById(id);
+  dropdown.style.display = dropdown.style.display === "block" ? "none" : "block";
+}
+
+function toggleSidebarYears(id) {
+  const section = document.getElementById(id);
+  section.style.display = section.style.display === "block" ? "none" : "block";
+}
+
+function toggleBlur(item, id) {
+  const allItems = document.querySelectorAll('.grid-item');
+  const allTerms = document.querySelectorAll('.terms-buttons');
+  const allYearTerms = document.querySelectorAll('.year-terms');
+
+  allItems.forEach(el => el.classList.remove('active'));
+  allTerms.forEach(term => { if (term.id !== id) term.style.display = 'none'; });
+  allYearTerms.forEach(yt => yt.style.display = 'none');
+
+  const target = document.getElementById(id);
+  const isActive = item.classList.contains('active');
+
+  if (isActive) {
+    item.classList.remove('active');
+    target.style.display = 'none';
+  } else {
+    item.classList.add('active');
+    target.style.display = 'block';
+  }
+}
+
+function toggleYears(showId, hideId1, hideId2, event) {
+  if(event) event.stopPropagation();
+  document.getElementById(showId).style.display = 'block';
+  if(hideId1) document.getElementById(hideId1).style.display = 'none';
+  if(hideId2) document.getElementById(hideId2).style.display = 'none';
+}
+
+function toggleSidebar() {
+  const sidebar = document.getElementById("sidebar");
+  const menuBtn = document.getElementById("menuBtn");
+  const closeBtn = document.getElementById("closeBtn");
+
+  sidebar.classList.toggle("active");
+
+  if (sidebar.classList.contains("active")) {
+    menuBtn.style.display = "none";
+    closeBtn.style.display = "block";
+  } else {
+    menuBtn.style.display = "block";
+    closeBtn.style.display = "none";
+  }
+}
+
+document.getElementById("closeBtn").style.display = "none";
+
+</script>
+</body>
+</html>
