@@ -1,411 +1,1185 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
+
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Arish University - Commerce</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+    <meta name="theme-color" content="#101d35" />
+    <meta name="description" content="المحتوى العلمي لطلاب كلية التجارة - جامعة العريش" />
+    <title>كلية التجارة | جامعة العريش</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
     <style>
+        :root {
+            --navy: #101d35;
+            --navy-soft: #1a2d4d;
+            --blue: #2878d0;
+            --blue-light: #eaf3ff;
+            --gold: #d9ad62;
+            --text: #17243a;
+            --muted: #718096;
+            --surface: #ffffff;
+            --border: #e7edf5;
+            --shadow: 0 18px 50px rgba(12, 29, 55, .13);
+        }
+
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: 'Cairo', sans-serif;
+        }
+
+        html {
+            scroll-behavior: smooth;
         }
 
         body {
-            position: relative;
-            background: url('imgs/comm.jpg') no-repeat center center/cover;
-            background-attachment: fixed;
             min-height: 100vh;
-            color: #333;
-            display: flex;
-            flex-direction: column;
+            font-family: "Cairo", sans-serif;
+            color: var(--text);
+            background: #f3f6fb;
+            overflow-x: hidden;
         }
 
-        body::before {
+        button,
+        a {
+            font: inherit;
+        }
+
+        button {
+            cursor: pointer;
+        }
+
+        .page-shell {
+            min-height: 100vh;
+            position: relative;
+            isolation: isolate;
+            display: flex;
+            flex-direction: column;
+            background:
+                linear-gradient(135deg, rgba(10, 24, 47, .94), rgba(17, 43, 73, .86)),
+                url("imgs/comm.jpg") center / cover fixed;
+        }
+
+        .page-shell::before {
             content: "";
             position: absolute;
             inset: 0;
-            background-color: rgba(0, 0, 0, 0.6);
             z-index: -1;
+            opacity: .18;
+            background-image: radial-gradient(rgba(255, 255, 255, .5) .7px, transparent .7px);
+            background-size: 22px 22px;
+            pointer-events: none;
         }
 
-        /* Sidebar Style */
-        .menu-btn {
-            font-size: 15px;
-            background: #2196f3;
-            border: none;
-            cursor: pointer;
-            padding: 5px 15px;
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            z-index: 1100;
+        .topbar {
+            width: min(1160px, calc(100% - 48px));
+            margin: 22px auto 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 16px;
+            position: relative;
+            z-index: 5;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
             color: #fff;
-            border-radius: 8px;
+            text-decoration: none;
+        }
+
+        .brand-mark {
+            width: 46px;
+            height: 46px;
+            display: grid;
+            place-items: center;
+            border: 1px solid rgba(255, 255, 255, .25);
+            border-radius: 15px;
+            background: rgba(255, 255, 255, .1);
+            color: var(--gold);
+            font-size: 23px;
+            backdrop-filter: blur(12px);
+        }
+
+        .brand-copy strong {
+            display: block;
+            font-size: 15px;
+            font-weight: 800;
+        }
+
+        .brand-copy span {
+            display: block;
+            color: rgba(255, 255, 255, .65);
+            font-size: 11px;
+        }
+
+        .menu-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 9px;
+            padding: 10px 17px;
+            border: 1px solid rgba(255, 255, 255, .22);
+            border-radius: 13px;
+            color: #fff;
+            background: rgba(255, 255, 255, .1);
+            backdrop-filter: blur(12px);
+            transition: .25s ease;
+        }
+
+        .menu-btn:hover {
+            background: rgba(255, 255, 255, .2);
+            transform: translateY(-2px);
+        }
+
+        .menu-btn svg {
+            width: 19px;
+            height: 19px;
+        }
+
+        .hero {
+            width: min(900px, calc(100% - 40px));
+            margin: 70px auto 30px;
+            text-align: center;
+            color: #fff;
+            animation: rise .7s ease both;
+        }
+
+        .eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 7px 14px;
+            margin-bottom: 18px;
+            border: 1px solid rgba(217, 173, 98, .42);
+            border-radius: 100px;
+            color: #f0cf97;
+            background: rgba(217, 173, 98, .1);
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        .eyebrow span {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--gold);
+        }
+
+        .hero h1 {
+            font-size: clamp(30px, 5vw, 52px);
+            line-height: 1.45;
+            font-weight: 900;
+            letter-spacing: -.7px;
+        }
+
+        .hero h1 em {
+            color: #e7c486;
+            font-style: normal;
+        }
+
+        .hero p {
+            max-width: 570px;
+            margin: 12px auto 0;
+            color: rgba(255, 255, 255, .72);
+            font-size: clamp(13px, 2vw, 16px);
+            line-height: 2;
+        }
+
+        main {
+            width: min(1160px, calc(100% - 48px));
+            margin: 0 auto 70px;
+            flex: 1;
+        }
+
+        .section-heading {
+            display: flex;
+            justify-content: space-between;
+            align-items: end;
+            gap: 15px;
+            margin: 35px 0 19px;
+            color: #fff;
+        }
+
+        .section-heading h2 {
+            font-size: 20px;
+            font-weight: 800;
+        }
+
+        .section-heading p {
+            color: rgba(255, 255, 255, .58);
+            font-size: 12px;
+            margin-top: 3px;
+        }
+
+        .section-count {
+            color: #f0cf97;
+            font-size: 12px;
+            white-space: nowrap;
+        }
+
+        .years-grid {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 18px;
+        }
+
+        .year-card {
+            position: relative;
+            min-height: 255px;
+            padding: 25px 20px 21px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, .72);
+            border-radius: 22px;
+            background: rgba(255, 255, 255, .97);
+            box-shadow: var(--shadow);
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            transition: transform .3s ease, box-shadow .3s ease;
+            animation: rise .65s ease both;
+        }
+
+        .year-card:nth-child(2) {
+            animation-delay: .08s;
+        }
+
+        .year-card:nth-child(3) {
+            animation-delay: .16s;
+        }
+
+        .year-card:nth-child(4) {
+            animation-delay: .24s;
+        }
+
+        .year-card:hover {
+            transform: translateY(-7px);
+            box-shadow: 0 24px 55px rgba(8, 25, 50, .2);
+        }
+
+        .year-card::after {
+            content: "";
+            position: absolute;
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            left: -65px;
+            bottom: -82px;
+            background: var(--accent-soft, #eaf3ff);
+            pointer-events: none;
+        }
+
+        .year-icon {
+            width: 58px;
+            height: 58px;
+            display: grid;
+            place-items: center;
+            border-radius: 18px;
+            color: var(--accent, var(--blue));
+            background: var(--accent-soft, var(--blue-light));
+            margin-bottom: 17px;
+        }
+
+        .year-icon svg {
+            width: 29px;
+            height: 29px;
+        }
+
+        .year-card h3 {
+            font-size: 19px;
+            font-weight: 800;
+            margin-bottom: 4px;
+        }
+
+        .year-card .subtitle {
+            color: var(--muted);
+            font-size: 12px;
+        }
+
+        .year-meta {
+            margin-top: auto;
+            padding-top: 22px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            width: 100%;
+            position: relative;
+            z-index: 1;
+        }
+
+        .year-meta span {
+            color: #8a96a8;
+            font-size: 11px;
+        }
+
+        .open-year {
+            border: 0;
+            border-radius: 10px;
+            padding: 8px 13px;
+            color: #fff;
+            background: var(--accent, var(--blue));
+            font-size: 12px;
+            font-weight: 700;
+            transition: .2s;
+        }
+
+        .open-year:hover {
+            filter: brightness(1.08);
+            transform: translateY(-2px);
+        }
+
+        .year-card.fourth {
+            --accent: #9a6bc8;
+            --accent-soft: #f2eafa;
+        }
+
+        .year-card.third {
+            --accent: #178d83;
+            --accent-soft: #e5f5f2;
+        }
+
+        .year-card.second {
+            --accent: #d18a35;
+            --accent-soft: #fff3e4;
+        }
+
+        .year-card.first {
+            --accent: #2878d0;
+            --accent-soft: #eaf3ff;
+        }
+
+        .coming-soon {
+            display: inline-flex;
+            margin-top: 12px;
+            padding: 4px 9px;
+            border-radius: 30px;
+            color: #8556b4;
+            background: #f2eafa;
+            font-size: 10px;
+            font-weight: 800;
+        }
+
+        .content-panel {
+            display: none;
+            margin-top: 24px;
+            padding: 24px;
+            border: 1px solid rgba(255, 255, 255, .75);
+            border-radius: 22px;
+            background: rgba(255, 255, 255, .98);
+            box-shadow: var(--shadow);
+            animation: rise .35s ease both;
+        }
+
+        .content-panel.active {
+            display: block;
+        }
+
+        .panel-head {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 15px;
+            padding-bottom: 17px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .panel-head h3 {
+            font-size: 19px;
+            font-weight: 800;
+        }
+
+        .panel-head p {
+            color: var(--muted);
+            font-size: 12px;
+            margin-top: 3px;
+        }
+
+        .close-panel {
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 8px 13px;
+            color: #526176;
+            background: #f7f9fc;
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        .year-options {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 18px;
+        }
+
+        .batch-btn {
+            padding: 10px 18px;
+            border: 1px solid #dce6f2;
+            border-radius: 12px;
+            color: #35506f;
+            background: #f7faff;
+            font-size: 13px;
+            font-weight: 700;
+            transition: .2s;
+        }
+
+        .batch-btn:hover,
+        .batch-btn.active {
+            color: #fff;
+            border-color: var(--blue);
+            background: var(--blue);
+        }
+
+        .terms-area {
+            margin-top: 20px;
+        }
+
+        .terms-title {
+            font-size: 13px;
+            color: #53647b;
+            font-weight: 700;
+            margin-bottom: 11px;
+        }
+
+        .terms-list {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 12px;
+        }
+
+        .term-link {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            padding: 15px;
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            color: var(--text);
+            text-decoration: none;
+            background: #fff;
+            transition: .2s;
+        }
+
+        .term-link:hover {
+            border-color: #a9c9ee;
+            background: #f7fbff;
+            transform: translateY(-2px);
+        }
+
+        .term-link strong {
+            display: block;
+            font-size: 13px;
+        }
+
+        .term-link small {
+            display: block;
+            color: var(--muted);
+            font-size: 10px;
+            margin-top: 3px;
+        }
+
+        .term-link .term-icon {
+            width: 38px;
+            height: 38px;
+            flex: 0 0 38px;
+            display: grid;
+            place-items: center;
+            border-radius: 11px;
+            color: var(--blue);
+            background: var(--blue-light);
+        }
+
+        .term-icon svg {
+            width: 19px;
+            height: 19px;
+        }
+
+        .empty-state {
+            padding: 22px;
+            border: 1px dashed #d8c8e9;
+            border-radius: 15px;
+            color: #755c91;
+            background: #fbf8ff;
+            font-size: 13px;
+            line-height: 1.9;
+        }
+
+        footer {
+            padding: 23px 20px;
+            color: rgba(255, 255, 255, .7);
+            background: rgba(6, 16, 32, .78);
+            text-align: center;
+            font-size: 12px;
+            line-height: 2;
+            border-top: 1px solid rgba(255, 255, 255, .1);
+        }
+
+        footer a {
+            color: #e8c486;
+            text-decoration: none;
+            font-weight: 800;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        .sidebar-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 19;
+            background: rgba(4, 13, 27, .55);
+            opacity: 0;
+            visibility: hidden;
+            transition: .3s;
+        }
+
+        .sidebar-overlay.active {
+            opacity: 1;
+            visibility: visible;
         }
 
         .sidebar {
             position: fixed;
+            z-index: 20;
             top: 0;
-            right: -280px;
-            width: 280px;
-            height: 100%;
-            background: rgba(20, 20, 20, 0.98);
-            color: #fff;
-            padding: 60px 20px 20px;
-            transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            z-index: 1000;
+            right: 0;
+            width: min(340px, 88vw);
+            height: 100dvh;
+            padding: 25px 20px;
             overflow-y: auto;
-            box-shadow: -5px 0 15px rgba(0, 0, 0, 0.363);
+            color: #fff;
+            background: #101d35;
+            box-shadow: -15px 0 45px rgba(0, 0, 0, .25);
+            transform: translateX(105%);
+            transition: transform .35s cubic-bezier(.2, .8, .2, 1);
         }
 
-        .sidebar.active { right: 0; }
+        .sidebar.active {
+            transform: translateX(0);
+        }
+
+        .sidebar-head {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, .12);
+            margin-bottom: 18px;
+        }
+
+        .sidebar-head strong {
+            font-size: 17px;
+        }
 
         .close-btn {
-            font-size: 30px;
+            width: 36px;
+            height: 36px;
+            border: 1px solid rgba(255, 255, 255, .15);
+            border-radius: 10px;
             color: #fff;
-            background: none;
-            border: none;
-            cursor: pointer;
-            position: absolute;
-            top: 15px;
-            left: 15px;
+            background: rgba(255, 255, 255, .08);
+            font-size: 22px;
         }
 
-        .sidebar h3 {
-            margin: 15px 0;
-            padding: 10px;
-            background: #333;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 1.1rem;
+        .side-year {
+            margin-bottom: 9px;
         }
 
-        .dropdown { display: none; padding-right: 15px; }
-        .dropdown button {
+        .side-year-toggle {
             width: 100%;
-            background: #ff9800;
-            color: #fff;
-            border: none;
-            margin: 5px 0;
-            padding: 10px;
-            border-radius: 6px;
-            cursor: pointer;
-            text-align: right;
-        }
-
-        .year-terms-sidebar a {
-            display: block;
-            background: #2196f3;
-            margin: 4px 0;
-            padding: 8px;
-            border-radius: 6px;
-            text-decoration: none;
-            color: #fff;
-            font-size: 0.9rem;
-        }
-
-        /* Hero Section */
-        .hero {
-            text-align: center;
-            padding: 100px 20px 40px;
-            color: #fff;
-        }
-        .hero h1 { font-size: 2.5rem; margin-bottom: 10px; font-weight: 700; }
-        .hero p { font-size: 1.1rem; opacity: 0.9; }
-
-        /* Grid & Flip Cards */
-        .grid-container {
             display: flex;
-            justify-content: center;
-            gap: 25px;
-            flex-wrap: wrap;
-            padding: 30px 20px;
-            perspective: 1000px;
-        }
-
-        .grid-item {
-            width: 280px; 
-            height: 340px;
-            cursor: pointer;
-        }
-
-        .card-inner {
-            position: relative;
-            width: 100%;
-            height: 100%;
-            transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            transform-style: preserve-3d;
-        }
-
-        .grid-item.flipped .card-inner {
-            transform: rotateY(180deg);
-        }
-
-        .card-front, .card-back {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            -webkit-backface-visibility: hidden;
-            backface-visibility: hidden;
-            border-radius: 20px;
-            display: flex;
-            flex-direction: column;
             align-items: center;
-            justify-content: center;
-            padding: 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-        }
-
-        .card-front {
-            background: rgba(255, 255, 255, 0.95);
-        }
-
-        .card-back {
-            background: #f1f1f1;
-            transform: rotateY(180deg);
-        }
-
-        .card-front span {
-            font-size: 1.4rem;
+            justify-content: space-between;
+            padding: 12px 13px;
+            border: 1px solid rgba(255, 255, 255, .09);
+            border-radius: 12px;
+            color: #fff;
+            background: rgba(255, 255, 255, .06);
+            text-align: right;
+            font-size: 13px;
             font-weight: 700;
-            color: #2c3e50;
-            margin-bottom: 20px;
         }
 
-        /* Buttons Style */
-        .btn-group {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
+        .side-year-toggle:hover {
+            background: rgba(255, 255, 255, .12);
+        }
+
+        .side-year-toggle span:last-child {
+            color: #e7c486;
+        }
+
+        .side-content {
+            display: none;
+            padding: 9px 12px 5px;
+        }
+
+        .side-content.open {
+            display: block;
+        }
+
+        .side-batch {
             width: 100%;
+            padding: 9px 11px;
+            margin: 4px 0;
+            border: 0;
+            border-radius: 9px;
+            color: #dce8f8;
+            background: rgba(255, 255, 255, .07);
+            text-align: right;
+            font-size: 12px;
         }
 
-        .btn-group button {
-            padding: 12px;
-            border: none;
-            border-radius: 10px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-size: 1rem;
+        .side-batch:hover {
+            background: rgba(40, 120, 208, .35);
         }
 
-        .year-btn { background: #2196f3; color: white; }
-        .year-btn:hover { background: #2196f3; transform: translateY(-2px); }
-
-        .term-btn { background: #2196f3; color: white; }
-        .term-btn:hover { background: #2196f3; transform: translateY(-2px); }
-
-        
-        .back-btn {
-            margin-top: 25px;
-            background: #2196f3;
-            color: white;
-            width: 60%; 
-            border: none;
-            border-radius: 10px;
-        }
-        .back-btn:hover {
-            background: #2196f3;
-            transform: translateY(-2px);
+        .side-term {
+            display: block;
+            padding: 7px 12px;
+            margin: 4px 0;
+            color: #a9c9ee;
+            text-decoration: none;
+            font-size: 11px;
         }
 
-        footer {
-            background-color: #1a1a1a;
-            color: white;
-            text-align: center;
-            padding: 20px;
-            margin-top: auto;
+        .side-term:hover {
+            color: #fff;
         }
-        footer a { color: #0099ff; text-decoration: none; font-weight: bold; }
 
-        @media (max-width: 768px) {
-            .grid-item { width: 90%; height: 320px; }
+        .side-empty {
+            color: #bda9d2;
+            font-size: 11px;
+            padding: 8px 10px;
+        }
+
+        @keyframes rise {
+            from {
+                opacity: 0;
+                transform: translateY(15px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 900px) {
+            .years-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+
+            .hero {
+                margin-top: 58px;
+            }
+        }
+
+        @media (max-width: 560px) {
+            .page-shell {
+                background-attachment: scroll;
+            }
+
+            .topbar,
+            main {
+                width: min(100% - 30px, 460px);
+            }
+
+            .topbar {
+                margin-top: 14px;
+            }
+
+            .brand-mark {
+                width: 41px;
+                height: 41px;
+                border-radius: 13px;
+            }
+
+            .brand-copy strong {
+                font-size: 13px;
+            }
+
+            .brand-copy span {
+                font-size: 10px;
+            }
+
+            .menu-btn {
+                padding: 9px 12px;
+                font-size: 12px;
+            }
+
+            .hero {
+                width: calc(100% - 32px);
+                margin: 53px auto 22px;
+            }
+
+            .hero h1 {
+                font-size: 32px;
+            }
+
+            .hero p {
+                font-size: 12px;
+            }
+
+            .section-heading {
+                margin-top: 27px;
+            }
+
+            .section-heading h2 {
+                font-size: 17px;
+            }
+
+            .years-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 11px;
+            }
+
+            .year-card {
+                min-height: 205px;
+                padding: 17px 14px 15px;
+                border-radius: 17px;
+            }
+
+            .year-icon {
+                width: 48px;
+                height: 48px;
+                border-radius: 14px;
+                margin-bottom: 13px;
+            }
+
+            .year-icon svg {
+                width: 24px;
+                height: 24px;
+            }
+
+            .year-card h3 {
+                font-size: 15px;
+            }
+
+            .year-card .subtitle {
+                font-size: 10px;
+            }
+
+            .year-meta {
+                padding-top: 16px;
+                align-items: flex-end;
+                flex-direction: column;
+            }
+
+            .year-meta span {
+                align-self: flex-start;
+                font-size: 9px;
+            }
+
+            .open-year {
+                width: 100%;
+                padding: 8px 5px;
+                font-size: 11px;
+            }
+
+            .coming-soon {
+                font-size: 9px;
+                margin-top: 8px;
+            }
+
+            .content-panel {
+                padding: 16px 13px;
+                border-radius: 17px;
+            }
+
+            .panel-head h3 {
+                font-size: 16px;
+            }
+
+            .panel-head p {
+                font-size: 10px;
+            }
+
+            .close-panel {
+                padding: 7px 9px;
+                font-size: 10px;
+            }
+
+            .year-options {
+                gap: 7px;
+            }
+
+            .batch-btn {
+                padding: 8px 12px;
+                font-size: 11px;
+            }
+
+            .terms-list {
+                grid-template-columns: 1fr;
+                gap: 9px;
+            }
+
+            .term-link {
+                padding: 12px;
+            }
+
+            footer {
+                font-size: 10px;
+                padding: 18px 12px;
+            }
+        }
+
+        @media (max-width: 350px) {
+            .years-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .year-card {
+                min-height: 190px;
+            }
+
+            .year-meta {
+                flex-direction: row;
+                align-items: center;
+            }
+
+            .year-meta span {
+                align-self: auto;
+            }
+
+            .open-year {
+                width: auto;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+
+            *,
+            *::before,
+            *::after {
+                scroll-behavior: auto !important;
+                animation-duration: .01ms !important;
+                transition-duration: .01ms !important;
+            }
         }
     </style>
 </head>
+
 <body>
+    <div class="page-shell">
+        <header class="topbar">
+            <a class="brand" href="#" aria-label="الصفحة الرئيسية">
+                <span class="brand-mark" aria-hidden="true">✦</span>
+                <span class="brand-copy">
+                    <strong>جامعة العريش</strong>
+                    <span>كلية التجارة</span>
+                </span>
+            </a>
+            <button class="menu-btn" id="menuBtn" type="button" aria-label="فتح القائمة" aria-expanded="false">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                    <path d="M4 7h16M4 12h16M4 17h16" />
+                </svg>
+                القائمة
+            </button>
+        </header>
 
-<button class="menu-btn" id="menuBtn" onclick="toggleSidebar()">☰ القائمة</button>
+        <section class="hero">
+            <div class="eyebrow"><span></span> المنصة التعليمية لطلاب الكلية</div>
+            <h1>جامعة العريش<br><em>كلية التجارة</em></h1>
+            <p>كل ما تحتاجه من ملازم ومحاضرات ومحتوى علمي، مرتب حسب الفرقة والدفعة الدراسية.</p>
+        </section>
 
-<div class="sidebar" id="sidebar">
-    <button class="close-btn" id="closeBtn" onclick="toggleSidebar()">×</button>
-
-    <h3 onclick="toggleDropdown('d1')">الفرقة الأولى</h3>
-    <div id="d1" class="dropdown">
-        <button onclick="toggleSidebarYears('sy1-23')">2023</button>
-        <div id="sy1-23" class="year-terms-sidebar" style="display:none">
-            <a href="https://drive.google.com/drive/folders/1HqgMdSu7XHdeZv_GK6_WEeVfc1S-jHGQ?usp=drive_link">التيرم الأول</a>
-            <a href="https://drive.google.com/drive/folders/1KFFDl7rlskhaK6GCIu2x0KuWcCxhxtt-?usp=drive_link">التيرم الثاني</a>
-        </div>
-        <button onclick="toggleSidebarYears('sy1-24')">2024</button>
-        <div id="sy1-24" class="year-terms-sidebar" style="display:none">
-            <a href="https://drive.google.com/drive/folders/18Z5LQg_2Z74LrT-jRgzfJvhXik4Q68jG?usp=drive_link">التيرم الثاني</a>
-        </div>
-    </div>
-
-    <h3 onclick="toggleDropdown('d2')">الفرقة الثانية</h3>
-    <div id="d2" class="dropdown">
-        <button onclick="toggleSidebarYears('sy2-24')">2024</button>
-        <div id="sy2-24" class="year-terms-sidebar" style="display:none">
-            <a href="https://drive.google.com/drive/folders/1DQUn7BZls3X3LJDtvrlkfHn5e14KCUiI?usp=drive_link">التيرم الأول</a>
-            <a href="https://drive.google.com/drive/folders/17Zc7lpX3FbdOHSRYeIw5GOWKJdj4RryF?usp=drive_link">التيرم الثاني</a>
-        </div>
-        <button onclick="toggleSidebarYears('sy2-25')">2025</button>
-        <div id="sy2-25" class="year-terms-sidebar" style="display:none">
-            <a href="https://drive.google.com/drive/folders/1FeGGjhRQm7ypXXwRRTXZIwUJIXgSf1aI?usp=drive_link">التيرم الأول</a>
-            <a href="https://drive.google.com/drive/folders/1EeR6ykQ3GrN4hczxMpVIlw68SgjK7g3K?usp=drive_link">التيرم الثاني</a>
-        </div>
-    </div>
-
-    <h3 onclick="toggleDropdown('d3')">الفرقة الثالثة</h3>
-    <div id="d3" class="dropdown">
-        <button onclick="toggleSidebarYears('sy3-25')">2025</button>
-        <div id="sy3-25" class="year-terms-sidebar" style="display:none">
-            <a href="https://drive.google.com/drive/folders/1zVFFM-Z4KmQLVu5XXZtt78Rlz7ZLyyuw?usp=drive_link">التيرم الأول</a>
-            <a href="https://drive.google.com/drive/folders/1S72X-cZB3CTUpJsDF7OsyU3lFEVeIC3l?usp=drive_link">التيرم الثاني</a>
-        </div>
-    </div>
-</div>
-
-<div class="hero">
-    <h1>جامعة العريش<br>كلية التجارة</h1>
-    <p>المحتوى العلمي لطلاب الكلية بشكل مبسط</p>
-</div>
-
-<div class="grid-container">
-    
-    <div class="grid-item" id="card-1">
-        <div class="card-inner">
-            <div class="card-front">
-                <span>الفرقة الأولى</span>
-                <div class="btn-group">
-                    <button class="year-btn" onclick="flipCard('1', '2023')">دفعـة 2023</button>
-                    <button class="year-btn" onclick="flipCard('1', '2024')">دفعـة 2024</button>
+        <main>
+            <div class="section-heading">
+                <div>
+                    <h2>اختر الفرقة الدراسية</h2>
+                    <p>ابدأ باختيار فرقتك للوصول إلى المحتوى المتاح</p>
                 </div>
+                <span class="section-count">٤ فرق دراسية</span>
             </div>
-            <div class="card-back">
-                <h3 id="title-1" style="margin-bottom:15px; font-size: 1.1rem;">الفرقة الأولى</h3>
-                <div class="btn-group" id="terms-1"></div>
-                <button class="year-btn back-btn" onclick="flipBack('1')">رجوع لاختيار السنة</button>
-            </div>
-        </div>
-    </div>
 
-    <div class="grid-item" id="card-2">
-        <div class="card-inner">
-            <div class="card-front">
-                <span>الفرقة الثانية</span>
-                <div class="btn-group">
-                    <button class="year-btn" onclick="flipCard('2', '2024')">دفعـة 2024</button>
-                    <button class="year-btn" onclick="flipCard('2', '2025')">دفعـة 2025</button>
+            <section class="years-grid" aria-label="الفرق الدراسية">
+                <article class="year-card first">
+                    <div class="year-icon" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v16H6.5A2.5 2.5 0 0 0 4 21.5z" />
+                            <path d="M4 5.5v16M8 7h8M8 11h7" />
+                        </svg>
+                    </div>
+                    <h3>الفرقة الأولى</h3>
+                    <p class="subtitle">المستوى الدراسي الأول</p>
+                    <div class="year-meta"><span>دفعتان متاحتان</span><button class="open-year"
+                            onclick="openYear('1')">عرض المحتوى ←</button></div>
+                </article>
+
+                <article class="year-card second">
+                    <div class="year-icon" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M3 7.5 12 3l9 4.5-9 4.5z" />
+                            <path d="M6 10v6c3.5 3 8.5 3 12 0v-6M21 8v7" />
+                        </svg>
+                    </div>
+                    <h3>الفرقة الثانية</h3>
+                    <p class="subtitle">المستوى الدراسي الثاني</p>
+                    <div class="year-meta"><span>دفعتان متاحتان</span><button class="open-year"
+                            onclick="openYear('2')">عرض المحتوى ←</button></div>
+                </article>
+
+                <article class="year-card third">
+                    <div class="year-icon" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M12 3 4 7v5c0 5 3.4 8 8 9 4.6-1 8-4 8-9V7z" />
+                            <path d="m8.5 12 2.2 2.2 4.8-5" />
+                        </svg>
+                    </div>
+                    <h3>الفرقة الثالثة</h3>
+                    <p class="subtitle">المستوى الدراسي الثالث</p>
+                    <div class="year-meta"><span>دفعة متاحة</span><button class="open-year" onclick="openYear('3')">عرض
+                            المحتوى ←</button></div>
+                </article>
+
+                <article class="year-card fourth">
+                    <div class="year-icon" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M2.5 9 12 4l9.5 5L12 14z" />
+                            <path d="M6.5 11.2v5.1c3.4 2.7 7.6 2.7 11 0v-5.1M21.5 9v6" />
+                        </svg>
+                    </div>
+                    <h3>الفرقة الرابعة</h3>
+                    <p class="subtitle">المستوى الدراسي الرابع</p>
+                    <div class="year-meta"><span>دفعة متاحة</span><button class="open-year"
+                            onclick="openYear('4')">عرض الفرقة</button></div>
+                </article>
+            </section>
+
+            <section class="content-panel" id="contentPanel" aria-live="polite">
+                <div class="panel-head">
+                    <div>
+                        <h3 id="panelTitle">المحتوى الدراسي</h3>
+                        <p>اختر الدفعة ثم التيرم المطلوب</p>
+                    </div>
+                    <button class="close-panel" type="button" onclick="closePanel()">إغلاق ✕</button>
                 </div>
-            </div>
-            <div class="card-back">
-                <h3 id="title-2" style="margin-bottom:15px; font-size: 1.1rem;">الفرقة الثانية</h3>
-                <div class="btn-group" id="terms-2"></div>
-                <button class="year-btn back-btn" onclick="flipBack('2')">رجوع لاختيار السنة</button>
-            </div>
-        </div>
+                <div class="year-options" id="batchOptions"></div>
+                <div class="terms-area" id="termsArea"></div>
+            </section>
+        </main>
+
+        <footer>
+            <div>Developed by <a href="https://react-portf-abdallah.vercel.app/" target="_blank"
+                    rel="noopener noreferrer">Abdallah Hassan</a></div>
+            <div>للتواصل والاستفسارات: <a href="tel:01029472254">01029472254</a></div>
+            <div>جميع الحقوق محفوظة © <span id="currentYear"></span></div>
+        </footer>
     </div>
 
-    <div class="grid-item" id="card-3">
-        <div class="card-inner">
-            <div class="card-front">
-                <span>الفرقة الثالثة</span>
-                <div class="btn-group">
-                    <button class="year-btn" onclick="flipCard('3', '2025')">دفعـة 2025</button>
-                </div>
-            </div>
-            <div class="card-back">
-                <h3 id="title-3" style="margin-bottom:15px; font-size: 1.1rem;">الفرقة الثالثة</h3>
-                <div class="btn-group" id="terms-3"></div>
-                <button class="year-btn back-btn" onclick="flipBack('3')">رجوع لاختيار السنة</button>
-            </div>
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+    <aside class="sidebar" id="sidebar" aria-label="القائمة الجانبية">
+        <div class="sidebar-head">
+            <strong>تصفح المحتوى</strong>
+            <button class="close-btn" id="closeBtn" type="button" aria-label="إغلاق القائمة">×</button>
         </div>
-    </div>
+        <div id="sidebarYears"></div>
+    </aside>
 
-</div>
+    <script>
+        const data = {
+            "1": {
+                name: "الأولى",
+                batches: {
+                    "2023 - 2024": [
+                        { name: "التيرم الأول", url: "https://drive.google.com/drive/folders/1HqgMdSu7XHdeZv_GK6_WEeVfc1S-jHGQ" },
+                        { name: "التيرم الثاني", url: "https://drive.google.com/drive/folders/1KFFDl7rlskhaK6GCIu2x0KuWcCxhxtt-" }
+                    ],
+                    "2024 - 2025": [
+                        { name: "التيرم الثاني", url: "https://drive.google.com/drive/folders/18Z5LQg_2Z74LrT-jRgzfJvhXik4Q68jG" }
+                    ]
+                }
+            },
+            "2": {
+                name: "الثانية",
+                batches: {
+                    "2024 - 2025": [
+                        { name: "التيرم الأول", url: "https://drive.google.com/drive/folders/1DQUn7BZls3X3LJDtvrlkfHn5e14KCUiI" },
+                        { name: "التيرم الثاني", url: "https://drive.google.com/drive/folders/17Zc7lpX3FbdOHSRYeIw5GOWKJdj4RryF" }
+                    ],
+                    "2025 - 2026": [
+                        { name: "التيرم الأول", url: "https://drive.google.com/drive/folders/1FeGGjhRQm7ypXXwRRTXZIwUJIXgSf1aI" },
+                        { name: "التيرم الثاني", url: "https://drive.google.com/drive/folders/1EeR6ykQ3GrN4hczxMpVIlw68SgjK7g3K" }
+                    ]
+                }
+            },
+            "3": {
+                name: "الثالثة",
+                batches: {
+                    "2025 - 2026": [
+                        { name: "التيرم الأول", url: "https://drive.google.com/drive/folders/1zVFFM-Z4KmQLVu5XXZtt78Rlz7ZLyyuw" },
+                        { name: "التيرم الثاني", url: "https://drive.google.com/drive/folders/1S72X-cZB3CTUpJsDF7OsyU3lFEVeIC3l" }
+                    ]
+                }
+            },
+            "4": {
+                name: "الرابعة",
+                batches: {
+                    "2026 - 2027": [
+                        { name: "التيرم الأول", url: "https://drive.google.com/drive/folders/1TxKnk4IniGuQcZVWyF7CvB7-ken73Dku?usp=sharing" },
+                        { name: "التيرم الثاني", url: "#" }
+                    ]
+                }
+            }
+        };
 
-<footer>
-    <div>Developed by <a href="https://react-portf-abdallah.vercel.app/" target="_blank">Abdallah Hassan</a></div>
-    <div>اتصل بنا: <a href="tel:01029472254">01029472254</a></div>
-</footer>
+        const panel = document.getElementById("contentPanel");
+        const panelTitle = document.getElementById("panelTitle");
+        const batchOptions = document.getElementById("batchOptions");
+        const termsArea = document.getElementById("termsArea");
+        const sidebar = document.getElementById("sidebar");
+        const overlay = document.getElementById("sidebarOverlay");
+        const menuBtn = document.getElementById("menuBtn");
 
-<script>
-    const data = {
-        "1": {
-            "2023": [
-                { name: "التيرم الأول", url: "https://drive.google.com/drive/folders/1HqgMdSu7XHdeZv_GK6_WEeVfc1S-jHGQ" },
-                { name: "التيرم الثاني", url: "https://drive.google.com/drive/folders/1KFFDl7rlskhaK6GCIu2x0KuWcCxhxtt-" }
-            ],
-            "2024": [
-                { name: "التيرم الثاني", url: "https://drive.google.com/drive/folders/18Z5LQg_2Z74LrT-jRgzfJvhXik4Q68jG" }
-            ]
-        },
-        "2": {
-            "2024": [
-                { name: "التيرم الأول", url: "https://drive.google.com/drive/folders/1DQUn7BZls3X3LJDtvrlkfHn5e14KCUiI" },
-                { name: "التيرم الثاني", url: "https://drive.google.com/drive/folders/17Zc7lpX3FbdOHSRYeIw5GOWKJdj4RryF" }
-            ],
-            "2025": [
-                { name: "التيرم الأول", url: "https://drive.google.com/drive/folders/1FeGGjhRQm7ypXXwRRTXZIwUJIXgSf1aI" },
-                { name: "التيرم الثاني", url: "https://drive.google.com/drive/folders/1EeR6ykQ3GrN4hczxMpVIlw68SgjK7g3K" }
-            ]
-        },
-        "3": {
-            "2025": [
-                { name: "التيرم الأول", url: "https://drive.google.com/drive/folders/1zVFFM-Z4KmQLVu5XXZtt78Rlz7ZLyyuw" },
-                { name: "التيرم الثاني", url: "https://drive.google.com/drive/folders/1S72X-cZB3CTUpJsDF7OsyU3lFEVeIC3l" }
-            ]
+        function openYear(level) {
+            const year = data[level];
+            panel.classList.add("active");
+            panelTitle.textContent = `الفرقة ${year.name}`;
+            batchOptions.innerHTML = "";
+            termsArea.innerHTML = "";
+
+            const batches = Object.keys(year.batches);
+            if (!batches.length) {
+                batchOptions.innerHTML = '<div class="empty-state">تمت إضافة أيقونة الفرقة الرابعة وتجهيز قسمها. سيتم عرض الدفعات والتيرمات هنا بمجرد إضافة روابط المحتوى.</div>';
+            } else {
+                batches.forEach((batch, index) => {
+                    const button = document.createElement("button");
+                    button.type = "button";
+                    button.className = `batch-btn${index === 0 ? " active" : ""}`;
+                    button.textContent = `دفعة ${batch}`;
+                    button.addEventListener("click", () => {
+                        batchOptions.querySelectorAll(".batch-btn").forEach(item => item.classList.remove("active"));
+                        button.classList.add("active");
+                        showTerms(level, batch);
+                    });
+                    batchOptions.appendChild(button);
+                });
+                showTerms(level, batches[0]);
+            }
+
+            panel.scrollIntoView({ behavior: "smooth", block: "nearest" });
         }
-    };
 
-    function toggleSidebar() {
-        document.getElementById("sidebar").classList.toggle("active");
-    }
+        function showTerms(level, batch) {
+            const terms = data[level].batches[batch] || [];
+            termsArea.innerHTML = '<div class="terms-title">المحتوى المتاح لدفعة ' + batch + '</div>';
+            const list = document.createElement("div");
+            list.className = "terms-list";
 
-    function toggleDropdown(id) {
-        const d = document.getElementById(id);
-        d.style.display = d.style.display === "block" ? "none" : "block";
-    }
+            if (!terms.length) {
+                termsArea.insertAdjacentHTML("beforeend", '<div class="empty-state">لا يوجد محتوى مضاف لهذه الدفعة حتى الآن.</div>');
+                return;
+            }
 
-    function toggleSidebarYears(id) {
-        const s = document.getElementById(id);
-        s.style.display = s.style.display === "block" ? "none" : "block";
-    }
+            terms.forEach(term => {
+                const link = document.createElement("a");
+                link.className = "term-link";
+                link.href = term.url;
+                link.target = "_blank";
+                link.rel = "noopener noreferrer";
+                link.innerHTML = `
+          <span><strong>${term.name}</strong><small>فتح ملفات ومحاضرات التيرم</small></span>
+          <span class="term-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v16H6.5A2.5 2.5 0 0 0 4 21.5z"/><path d="M4 5.5v16M8 7h8"/></svg>
+          </span>`;
+                list.appendChild(link);
+            });
+            termsArea.appendChild(list);
+        }
 
-    function flipCard(level, year) {
-        const termsContainer = document.getElementById(`terms-${level}`);
-        const title = document.getElementById(`title-${level}`);
-        
-        termsContainer.innerHTML = '';
-        title.innerText = `الفرقة ${level === '1' ? 'الأولى' : level === '2' ? 'الثانية' : 'الثالثة'} - ${year}`;
+        function closePanel() {
+            panel.classList.remove("active");
+        }
 
-        data[level][year].forEach(term => {
-            const btn = document.createElement('button');
-            btn.className = 'term-btn';
-            btn.innerText = term.name;
-            btn.onclick = () => window.open(term.url, '_blank');
-            termsContainer.appendChild(btn);
+        function openSidebar() {
+            sidebar.classList.add("active");
+            overlay.classList.add("active");
+            menuBtn.setAttribute("aria-expanded", "true");
+            document.body.style.overflow = "hidden";
+        }
+
+        function closeSidebar() {
+            sidebar.classList.remove("active");
+            overlay.classList.remove("active");
+            menuBtn.setAttribute("aria-expanded", "false");
+            document.body.style.overflow = "";
+        }
+
+        menuBtn.addEventListener("click", openSidebar);
+        document.getElementById("closeBtn").addEventListener("click", closeSidebar);
+        overlay.addEventListener("click", closeSidebar);
+        document.addEventListener("keydown", event => {
+            if (event.key === "Escape") closeSidebar();
         });
 
-        document.getElementById(`card-${level}`).classList.add('flipped');
-    }
+        function buildSidebar() {
+            const container = document.getElementById("sidebarYears");
+            Object.entries(data).forEach(([level, year]) => {
+                const section = document.createElement("div");
+                section.className = "side-year";
 
-    function flipBack(level) {
-        document.getElementById(`card-${level}`).classList.remove('flipped');
-    }
+                const toggle = document.createElement("button");
+                toggle.className = "side-year-toggle";
+                toggle.type = "button";
+                toggle.innerHTML = `<span>الفرقة ${year.name}</span><span>＋</span>`;
 
-    window.onclick = function(event) {
-        if (!event.target.matches('.menu-btn') && !event.target.closest('.sidebar')) {
-            document.getElementById("sidebar").classList.remove('active');
+                const content = document.createElement("div");
+                content.className = "side-content";
+
+                const batches = Object.entries(year.batches);
+                if (!batches.length) {
+                    content.innerHTML = '<div class="side-empty">المحتوى سيُضاف قريبًا</div>';
+                } else {
+                    batches.forEach(([batch, terms]) => {
+                        const batchButton = document.createElement("button");
+                        batchButton.className = "side-batch";
+                        batchButton.type = "button";
+                        batchButton.textContent = `دفعة ${batch}`;
+                        batchButton.addEventListener("click", () => {
+                            closeSidebar();
+                            openYear(level);
+                            const buttons = [...batchOptions.querySelectorAll(".batch-btn")];
+                            const selected = buttons.find(button => button.textContent === `دفعة ${batch}`);
+                            if (selected) selected.click();
+                        });
+                        content.appendChild(batchButton);
+
+                        terms.forEach(term => {
+                            const link = document.createElement("a");
+                            link.className = "side-term";
+                            link.href = term.url;
+                            link.target = "_blank";
+                            link.rel = "noopener noreferrer";
+                            link.textContent = `↗ ${term.name}`;
+                            content.appendChild(link);
+                        });
+                    });
+                }
+
+                toggle.addEventListener("click", () => {
+                    const isOpen = content.classList.toggle("open");
+                    toggle.querySelector("span:last-child").textContent = isOpen ? "－" : "＋";
+                });
+
+                section.append(toggle, content);
+                container.appendChild(section);
+            });
         }
-    }
-</script>
 
+        buildSidebar();
+        document.getElementById("currentYear").textContent = new Date().getFullYear();
+    </script>
 </body>
+
 </html>
